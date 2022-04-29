@@ -14,9 +14,21 @@ spec:
     spec:
       containers:
       - name: demo-api
-        image: zsheaman/api-server-image:v1.0.0
+        image: zsheaman/api-server-image:v1.1.0
         env:
         - name: PORT
           value: "8082"
         ports:
         - containerPort: 8082
+        env:
+        - name: DBHOST
+          value: "database-server-mariadb"
+        - name: DBUSER
+          value: "root"
+        - name: DBPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-server-mariadb
+              key: mariadb-root-password
+        - name: DBDATABASE
+          value: "events_db"
